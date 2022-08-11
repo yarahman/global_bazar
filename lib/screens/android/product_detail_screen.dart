@@ -189,66 +189,115 @@ class ProductDetailScreen extends StatelessWidget {
                       30.0,
                     ),
                   ),
-                  child: Stack(alignment: Alignment.centerRight, children: [
-                    TextField(
-                      decoration: InputDecoration(
-                        hintText: 'enter coupon',
-                        border: InputBorder.none,
-                        isDense: true,
-                        filled: true,
-                        fillColor: Style.isDark
-                            ? const Color.fromARGB(255, 34, 34, 34)
-                            : const Color.fromARGB(255, 214, 214, 214),
-                        enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(
-                            30.0,
-                          ),
-                          borderSide: const BorderSide(
-                            color: Color.fromARGB(
-                              0,
-                              255,
-                              255,
-                              255,
+                  child: Stack(
+                    alignment: Alignment.centerRight,
+                    children: [
+                      TextField(
+                        decoration: InputDecoration(
+                          hintText: 'enter coupon',
+                          border: InputBorder.none,
+                          isDense: true,
+                          filled: true,
+                          fillColor: Style.isDark
+                              ? const Color.fromARGB(255, 34, 34, 34)
+                              : const Color.fromARGB(255, 214, 214, 214),
+                          enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(
+                              30.0,
+                            ),
+                            borderSide: const BorderSide(
+                              color: Color.fromARGB(
+                                0,
+                                255,
+                                255,
+                                255,
+                              ),
                             ),
                           ),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(
-                            30.0,
-                          ),
-                          borderSide: const BorderSide(
-                            color: Color.fromARGB(
-                              0,
-                              255,
-                              255,
-                              255,
+                          focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(
+                              30.0,
+                            ),
+                            borderSide: const BorderSide(
+                              color: Color.fromARGB(
+                                0,
+                                255,
+                                255,
+                                255,
+                              ),
                             ),
                           ),
                         ),
                       ),
-                    ),
-                    GestureDetector(
-                      onTap: () {},
-                      child: Container(
-                        alignment: Alignment.center,
-                        height: 48,
-                        width: 90,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(30),
-                          color: Style.isDark ? Colors.grey : Colors.black,
-                        ),
-                        child: const Text(
-                          'Submit',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: Style.isDark ? Colors.black : Colors.white,
-                            fontSize: 15.0,
+                      GestureDetector(
+                        onTap: () {},
+                        child: Container(
+                          alignment: Alignment.center,
+                          height: 48,
+                          width: 90,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(30),
+                            color: Style.isDark ? Colors.grey : Colors.black,
+                          ),
+                          child: const Text(
+                            'Submit',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: Style.isDark ? Colors.black : Colors.white,
+                              fontSize: 15.0,
+                            ),
                           ),
                         ),
                       ),
+                    ],
+                  ),
+                ),
+                const SizedBox(
+                  height: 10.0,
+                ),
+                const Divider(
+                  color: Colors.grey,
+                  height: 10,
+                  thickness: 0.2,
+                ),
+                const SizedBox(
+                  height: 15.0,
+                ),
+                const Padding(
+                  padding: EdgeInsets.only(
+                    left: 5.0,
+                  ),
+                  child: Text(
+                    'Processing time',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 17.0,
+                      fontFamily: Style.ard,
                     ),
-                  ]),
+                  ),
+                ),
+                const SizedBox(
+                  height: 10.0,
+                ),
+                const Padding(
+                  padding: EdgeInsets.only(
+                    left: 5.0,
+                  ),
+                  child: Text(
+                    '7 Days',
+                    style: TextStyle(
+                      fontSize: 18.0,
+                    ),
+                  ),
+                ),
+                const SizedBox(
+                  height: 15.0,
+                ),
+                const Divider(
+                  color: Colors.grey,
+                  height: 10,
+                  thickness: 0.2,
                 ),
               ],
             ),
@@ -307,7 +356,7 @@ class ProductDetailScreen extends StatelessWidget {
       floatingActionButton: FloatingActionButton(
         tooltip: 'make this favorite',
         elevation: 5.0,
-        backgroundColor: Style.defaultColor,
+        backgroundColor: Style.isDark ? Colors.grey : Colors.black,
         onPressed: () {},
         child: const Icon(
           Icons.favorite_border_rounded,
