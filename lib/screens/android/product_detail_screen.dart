@@ -299,6 +299,7 @@ class ProductDetailScreen extends StatelessWidget {
                   height: 10,
                   thickness: 0.2,
                 ),
+                const Text('this is chnages'),
               ],
             ),
           ),
