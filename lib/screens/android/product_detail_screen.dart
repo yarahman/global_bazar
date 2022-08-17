@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../theme/style.dart';
+import '../../widgets/universal_widgets/overview_product_item.dart';
 
 class ProductDetailScreen extends StatelessWidget {
   static const routeName = 'productDetailScreen';
@@ -299,10 +300,253 @@ class ProductDetailScreen extends StatelessWidget {
                   height: 10,
                   thickness: 0.2,
                 ),
-                const Text('this is chnages'),
+                const SizedBox(
+                  height: 15.0,
+                ),
+                Stack(
+                  children: [
+                    SizedBox(
+                      width: double.infinity,
+                      child: Image.asset('assets/images/supplier_info_img.png'),
+                    ),
+                    Column(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(
+                            top: 15.0,
+                            left: 20.0,
+                          ),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: const [
+                                  SelectableText(
+                                    'company name',
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 17.0,
+                                      fontFamily: Style.ard,
+                                    ),
+                                  ),
+                                  Text('country'),
+                                ],
+                              ),
+                              const SizedBox(
+                                height: 20.0,
+                              ),
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Column(
+                                    children: const [
+                                      Text(
+                                        '4.5/5',
+                                        style: TextStyle(
+                                          fontSize: 17.0,
+                                          fontWeight: FontWeight.bold,
+                                          fontFamily: Style.ard,
+                                        ),
+                                      ),
+                                      Text(
+                                        'score',
+                                      )
+                                    ],
+                                  ),
+                                  Column(
+                                    children: const [
+                                      Text(
+                                        '100.0%',
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 17.0,
+                                          fontFamily: Style.ard,
+                                        ),
+                                      ),
+                                      Text('on time delivery rate'),
+                                    ],
+                                  ),
+                                  Column(
+                                    children: const [
+                                      Text(
+                                        '<3 hour',
+                                        style: TextStyle(
+                                          fontFamily: Style.ard,
+                                          fontSize: 17.0,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                      Text(
+                                        'response time',
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(
+                                height: 30.0,
+                              ),
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  Column(
+                                    children: const [
+                                      Text(
+                                        '1025',
+                                        style: TextStyle(
+                                          fontSize: 17.0,
+                                          fontWeight: FontWeight.bold,
+                                          fontFamily: Style.ard,
+                                        ),
+                                      ),
+                                      Text(
+                                        'transactions',
+                                      )
+                                    ],
+                                  ),
+                                  Column(
+                                    children: const [
+                                      Text(
+                                        '200',
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 17.0,
+                                          fontFamily: Style.ard,
+                                        ),
+                                      ),
+                                      Text('staff'),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 30.0,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            InkWell(
+                              onTap: () {},
+                              highlightColor: Colors.deepOrange,
+                              borderRadius: BorderRadius.circular(30.0),
+                              child: Container(
+                                alignment: Alignment.center,
+                                width: 120.0,
+                                height: 40,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(30.0),
+                                  border: Border.all(
+                                    color: Style.isDark
+                                        ? Colors.grey
+                                        : Colors.black,
+                                    width: 1.0,
+                                  ),
+                                ),
+                                child: const Text(
+                                  'follow',
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontFamily: Style.ard,
+                                    fontSize: 17.0,
+                                  ),
+                                ),
+                              ),
+                            ),
+                            InkWell(
+                              onTap: () {},
+                              borderRadius: BorderRadius.circular(
+                                30.0,
+                              ),
+                              highlightColor: Colors.deepOrange,
+                              child: Container(
+                                alignment: Alignment.center,
+                                width: 120.0,
+                                height: 40,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(30.0),
+                                  border: Border.all(
+                                    color: Style.isDark
+                                        ? Colors.grey
+                                        : Colors.black,
+                                    width: 1.0,
+                                  ),
+                                ),
+                                child: const Text(
+                                  'visit store',
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontFamily: Style.ard,
+                                    fontSize: 17.0,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+                const SizedBox(
+                  height: 30.0,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    const Padding(
+                      padding: EdgeInsets.only(
+                        left: 5.0,
+                      ),
+                      child: Text(
+                        'More products by this seller',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontFamily: Style.ard,
+                          fontSize: 17,
+                        ),
+                      ),
+                    ),
+                    IconButton(
+                      onPressed: () {},
+                      icon: const Icon(
+                        Icons.next_plan_sharp,
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(
+                  height: 15.0,
+                ),
+                GridView.builder(
+                  shrinkWrap: true,
+                  itemCount: 10,
+                  physics: const NeverScrollableScrollPhysics(),
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    childAspectRatio: 3 / 2,
+                    crossAxisSpacing: 2,
+                    mainAxisExtent: 335,
+                    mainAxisSpacing: 2,
+                  ),
+                  itemBuilder: (context, index) {
+                    return const OverviewProductItem();
+                  },
+                )
               ],
             ),
           ),
+//
+//
+//
+//
+//
+//* bottom buttons designs --------->
           Padding(
             padding:
                 const EdgeInsets.symmetric(horizontal: 10.0, vertical: 3.0),
@@ -363,7 +607,7 @@ class ProductDetailScreen extends StatelessWidget {
           Icons.favorite_border_rounded,
         ),
       ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
   }
 }

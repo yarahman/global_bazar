@@ -9,6 +9,7 @@ class Products with ChangeNotifier {
         storeId: 'yeasin1660',
         deliveryTime: '1 days',
         numberOfReviews: 0,
+        countryName: CountryName.usa,
         price: 5.0,
         title: 'nike 6001',
         imageOrVideoUrls: [
@@ -16,11 +17,12 @@ class Products with ChangeNotifier {
           'https://c.files.bbci.co.uk/44CF/production/_117751671_satan-shoes1.jpg',
           'https://s1.bukalapak.com/img/19707232321/large/JEJE_NIKE_AIRZOO.jpg'
         ],
-        categories: Categories.shoes,
+        categories: [Categories.shoes],
         shortDescription: 'best shoes for ever you see',
         isReadyToShip: true),
     Product(
       id: 'k10',
+      countryName: CountryName.china,
       storeId: 'arafat1660',
       deliveryTime: '3 days',
       numberOfReviews: 0,
@@ -31,7 +33,7 @@ class Products with ChangeNotifier {
         'https://www.gazelle.com/thehorn/wp-content/uploads/2015/05/Used_Phones2.jpg',
         'https://res.cloudinary.com/jerrick/image/upload/f_jpg,fl_progressive,q_auto,w_1024/60278ce6e5abae001c525d99.png'
       ],
-      categories: Categories.electronics,
+      categories: [Categories.electronics],
       shortDescription: 'used mobile phones for cheapest price',
       isReadyToShip: false,
     ),

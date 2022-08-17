@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import './theme/style.dart';
 import './screens/bottom_tab_bar_screen.dart';
 import './screens/android/product_detail_screen.dart';
+import './screens/android/adding_product_screen.dart';
 
 void main() {
   runApp(
@@ -93,6 +94,7 @@ class MyApp extends StatelessWidget {
       routes: {
         BottomTabbarScreen.routeName: (context) => const BottomTabbarScreen(),
         ProductDetailScreen.routeName:(context) => const ProductDetailScreen(),
+        AddingProductScreen.routeName :(context) => const AddingProductScreen(),
 
       },
     );

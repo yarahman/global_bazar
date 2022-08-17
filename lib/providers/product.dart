@@ -10,6 +10,7 @@ class Product with ChangeNotifier {
     required this.price,
     required this.deliveryTime,
     required this.categories,
+    required this.countryName,
     required this.isReadyToShip,
     this.imageOrVideoUrls,
     this.couponCode,
@@ -22,7 +23,8 @@ class Product with ChangeNotifier {
   String? shortDescription;
   int? numberOfReviews;
   double? price;
-  Categories? categories;
+  List<Categories>? categories;
+  CountryName countryName;
   bool? isReadyToShip;
   String? couponCode;
   String? deliveryTime;
@@ -40,4 +42,19 @@ enum Categories {
   sports,
   books,
   electronics,
+}
+
+enum CountryName {
+  usa,
+  china,
+  uk,
+  japan,
+  taiwan,
+  italy,
+  malasia,
+  qatar,
+  bangladesh,
+  india,
+  pakistan,
+  sudiArab
 }

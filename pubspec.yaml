@@ -38,6 +38,8 @@ dependencies:
   flutter_image_slideshow: ^0.1.2
   #this is the provider package
   provider: ^6.0.3
+  #this package for picking file like video image and more
+  file_picker: ^5.0.1
 
 dev_dependencies:
   flutter_test:

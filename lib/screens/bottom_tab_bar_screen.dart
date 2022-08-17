@@ -62,12 +62,8 @@ class _BottomTabbarScreenState extends State<BottomTabbarScreen> {
 
     SystemChrome.setSystemUIOverlayStyle(
       const SystemUiOverlayStyle(
-        statusBarColor: Color.fromARGB(
-          0,
-          255,
-          255,
-          255,
-        ),
+        statusBarColor: Colors.transparent
+        
       ),
     );
 
