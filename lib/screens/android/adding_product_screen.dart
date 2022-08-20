@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:file_picker/file_picker.dart';
 
 import '../../theme/style.dart';
+import '../android/image_preivew_screen.dart';
 
 class AddingProductScreen extends StatefulWidget {
   static const routeName = 'addingProductScreen';
@@ -157,6 +158,11 @@ class _AddingProductScreenState extends State<AddingProductScreen>
         if (status == AnimationStatus.completed) {
           uploadFileTextController!.forward();
           uploadFileIconController!.forward();
+        } else if (status == AnimationStatus.dismissed) {
+          setState(() {
+            fileUploadButtonText = 'Upload File';
+            uploadFileIcon = Icons.file_copy;
+          });
         }
       });
     buttonHightAnimation = Tween<double>(
@@ -280,11 +286,15 @@ class _AddingProductScreenState extends State<AddingProductScreen>
                   });
                   deleteButtonTwoController!.stop();
                   deleteButtonOneController!.reverse();
-                  Future.delayed(const Duration(seconds: 1)).then((_) {
+                  Future.delayed(const Duration(milliseconds: 500)).then((_) {
                     setState(() {
                       isSelectionMode = false;
                     });
                   });
+
+                  if (savedImagesOrVidoes.isEmpty) {
+                    uploadImageOrVideoButtonController!.reverse();
+                  }
                 },
                 icon: Icon(
                   Icons.delete_forever,
@@ -549,8 +559,11 @@ class _AddingProductScreenState extends State<AddingProductScreen>
                                   } else {
                                     selectedFiles.remove(photoOrVidoes);
                                     if (selectedFiles.isEmpty) {
-                                      Future.delayed(const Duration(seconds: 1))
-                                          .then(
+                                      Future.delayed(
+                                        const Duration(
+                                          milliseconds: 500,
+                                        ),
+                                      ).then(
                                         (_) {
                                           setState(() {
                                             isSelectionMode = false;
@@ -563,6 +576,11 @@ class _AddingProductScreenState extends State<AddingProductScreen>
                                     }
                                   }
                                 });
+                              } else {
+                                Navigator.of(context).pushNamed(
+                                  ImagePreviewScreen.routeName,
+                                  arguments: photoOrVidoes,
+                                );
                               }
                             },
                             onLongPress: () {
