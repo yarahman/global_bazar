@@ -10,16 +10,19 @@ class ImagePreviewScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final imageFile = ModalRoute.of(context)!.settings.arguments as File;
+    final imageFile = ModalRoute.of(context)!.settings.arguments as Map<String,dynamic>;
     return Scaffold(
       body: Stack(
         alignment: Alignment.topCenter,
         children: [
           Center(
             child: SizedBox(
-              child: Image.file(
-                imageFile,
-                fit: BoxFit.cover,
+              child: Hero(
+                tag: imageFile['index'],
+                child: Image.file(
+                  imageFile['file'],
+                  fit: BoxFit.cover,
+                ),
               ),
             ),
           ),

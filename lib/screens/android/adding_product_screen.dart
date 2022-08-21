@@ -20,10 +20,27 @@ class _AddingProductScreenState extends State<AddingProductScreen>
   //
   //*@@@@@@@@@@@@@@@@@@@@@@@@@@@@ all common variables @@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
-  var dropDownValue = 'min';
   var fileUploadButtonText = 'Upload File';
   var uploadFileIcon = Icons.file_copy;
   bool isSelectionMode = false;
+  var color = Colors.white;
+  int? countryIndex;
+  var isFormComplete = false;
+
+  //
+  //
+  //* form variables ----->
+  var productTitle = '';
+  var productShortDescription = '';
+  var deliveryTime = '';
+  var dropDownValue = 'min';
+  var selectedCategory = '';
+  List<File> savedImagesOrVidoes = [];
+  var selectedCountryName = '';
+  var isReadyToShip = false;
+  var regularPrice = '';
+  var discountPercent = '';
+  var couponCode = '';
 
 //
 //?####################################### end commons Variables ###############################
@@ -56,12 +73,15 @@ class _AddingProductScreenState extends State<AddingProductScreen>
   AnimationController? deleteButtonTwoController;
   Animation<double>? deleteTwoAnimation;
 //
+//
+//* select your country animations
+  AnimationController? countryListTileController;
+  Animation<double>? countryListTileAnimation;
 //?#################################### end all animations variabes ############################
 //
 //
 //*@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ all lists @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
   List<File> imagesOrVideos = [];
-  List<File> savedImagesOrVidoes = [];
   List deliveryTimes = [
     'min',
     'hour',
@@ -70,9 +90,9 @@ class _AddingProductScreenState extends State<AddingProductScreen>
   ];
 
   List<String> catagorys = [
-    ' Home & Kitchen',
-    ' Beauty & PersonalCare',
-    ' Toys & Games',
+    'Home & Kitchen',
+    'Beauty & PersonalCare',
+    'Toys & Games',
     'Cloth',
     'Shoes',
     'Jewelry',
@@ -81,6 +101,22 @@ class _AddingProductScreenState extends State<AddingProductScreen>
     'Books',
     'Electronics',
   ];
+
+  List<String> countryName = [
+    'Usa',
+    'China',
+    'Uk',
+    'Japan',
+    'Taiwan',
+    'Italy',
+    'Malasia',
+    'Qatar',
+    'Bangladesh',
+    'India',
+    'Pakistan',
+    'Sudi Arab'
+  ];
+  List<String> images = [];
 
   List<String> selectedCategorys = [];
   List<File> selectedFiles = [];
@@ -114,6 +150,8 @@ class _AddingProductScreenState extends State<AddingProductScreen>
       });
     });
   }
+
+  void formCompleteOrNot() {}
 
 //
 //?##################################end own methods #####################################
@@ -249,6 +287,20 @@ class _AddingProductScreenState extends State<AddingProductScreen>
     deleteTwoAnimation = Tween<double>(begin: 24.0, end: 35).animate(
         CurvedAnimation(
             parent: deleteButtonTwoController!, curve: Curves.bounceIn));
+    //
+    //
+    //* this is for country List Tile Animation
+    countryListTileController = AnimationController(
+      vsync: this,
+      duration: const Duration(
+        seconds: 1,
+      ),
+    );
+    countryListTileAnimation =
+        Tween<double>(begin: 0.0, end: 50.0).animate(countryListTileController!)
+          ..addListener(() {
+            setState(() {});
+          });
     super.initState();
   }
 
@@ -270,286 +322,389 @@ class _AddingProductScreenState extends State<AddingProductScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text(
-          'Add Your Products',
-        ),
-        actions: [
-          if (isSelectionMode)
-            Transform.translate(
-              offset: Offset(deleteOneAnimation!.value, 0.0),
-              child: IconButton(
-                onPressed: () async {
-                  removeSelectedImage();
-                  setState(() {
-                    selectedFiles.clear();
-                  });
-                  deleteButtonTwoController!.stop();
-                  deleteButtonOneController!.reverse();
-                  Future.delayed(const Duration(milliseconds: 500)).then((_) {
+        appBar: AppBar(
+          title: const Text(
+            'Add Your Products',
+          ),
+          actions: [
+            if (isSelectionMode)
+              Transform.translate(
+                offset: Offset(deleteOneAnimation!.value, 0.0),
+                child: IconButton(
+                  onPressed: () async {
+                    removeSelectedImage();
                     setState(() {
-                      isSelectionMode = false;
+                      selectedFiles.clear();
                     });
-                  });
+                    deleteButtonTwoController!.stop();
+                    deleteButtonOneController!.reverse();
+                    Future.delayed(const Duration(milliseconds: 500)).then((_) {
+                      setState(() {
+                        isSelectionMode = false;
+                      });
+                    });
 
-                  if (savedImagesOrVidoes.isEmpty) {
-                    uploadImageOrVideoButtonController!.reverse();
-                  }
-                },
-                icon: Icon(
-                  Icons.delete_forever,
-                  size: deleteTwoAnimation!.value,
-                ),
-              ),
-            ),
-        ],
-      ),
-      body: SafeArea(
-        child: ListView(
-          shrinkWrap: true,
-          children: [
-            requiredTexts(text: 'Enter your product title'),
-            textField(
-              hintText: 'Ex. : meetion mt-m915 mouse',
-              isDescriptionTextField: false,
-              onChange: (value) {},
-              maxLengthForShortTextFields: 50,
-              textInputType: TextInputType.text,
-            ),
-            requiredTexts(text: 'Enter a short description about your product'),
-            textField(
-                hintText: 'this is a meetion gaming...',
-                isDescriptionTextField: true,
-                onChange: (value) {},
-                textInputType: TextInputType.multiline),
-            requiredTexts(text: 'Enter delivery time'),
-            const SizedBox(
-              height: 10.0,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Flexible(
-                  child: SizedBox(
-                    width: 75,
-                    child: textField(
-                      hintText: 'EX. : 5',
-                      isDescriptionTextField: false,
-                      maxLengthForShortTextFields: 10,
-                      onChange: (value) {},
-                      textInputType: TextInputType.number,
-                    ),
-                  ),
-                ),
-                const SizedBox(
-                  width: 20.0,
-                ),
-                const Padding(
-                  padding: EdgeInsets.only(
-                    top: 15.0,
-                  ),
-                  child: Text(
-                    ':',
-                    style: TextStyle(
-                      fontFamily: Style.ard,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-                const SizedBox(
-                  width: 20.0,
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(
-                    top: 10.0,
-                  ),
-                  child: DropdownButton(
-                    underline: Container(
-                      width: double.infinity,
-                      height: 2.0,
-                      color: Style.defaultColor,
-                    ),
-                    isDense: true,
-                    style: const TextStyle(
-                      fontFamily: Style.corbel,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 17.0,
-                      color: Style.isDark ? Colors.white : Colors.black,
-                    ),
-                    icon: const Icon(
-                      Icons.expand_more_rounded,
-                      color: Style.defaultColor,
-                    ),
-                    alignment: Alignment.center,
-                    borderRadius: BorderRadius.circular(
-                      30.0,
-                    ),
-                    value: dropDownValue,
-                    items: deliveryTimes.map((items) {
-                      return DropdownMenuItem(
-                          alignment: Alignment.center,
-                          value: items,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                items,
-                              ),
-                              const SizedBox(
-                                width: 3.0,
-                              ),
-                              const Icon(Icons.timelapse_sharp),
-                            ],
-                          ));
-                    }).toList(),
-                    onChanged: ((items) {
-                      setState(() {
-                        dropDownValue = items.toString();
-                      });
-                    }),
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-            requiredTexts(text: 'Select product Catagory'),
-            const SizedBox(
-              height: 10.0,
-            ),
-            GridView(
-              physics: const NeverScrollableScrollPhysics(),
-              shrinkWrap: true,
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 4,
-                childAspectRatio: 3 / 2,
-                crossAxisSpacing: 3,
-                mainAxisSpacing: 5,
-                mainAxisExtent: 40,
-              ),
-              children: catagorys.map((value) {
-                return InkWell(
-                  onTap: () {
-                    if (!selectedCategorys.contains(value)) {
-                      setState(() {
-                        selectedCategorys.add(value);
-                        categoryController!.repeat();
-                      });
-                    } else {
-                      setState(() {
-                        selectedCategorys.remove(value);
-                      });
+                    if (savedImagesOrVidoes.isEmpty) {
+                      uploadImageOrVideoButtonController!.reverse();
                     }
                   },
-                  borderRadius: BorderRadius.circular(40.0),
-                  highlightColor: Style.defaultColor.withOpacity(0.5),
-                  child: Container(
-                    alignment: Alignment.center,
-                    decoration: BoxDecoration(
+                  icon: Icon(
+                    Icons.delete_forever,
+                    size: deleteTwoAnimation!.value,
+                  ),
+                ),
+              ),
+          ],
+        ),
+        body: SafeArea(
+          child: ListView(
+            shrinkWrap: true,
+            children: [
+              requiredTexts(text: 'Enter your product title'),
+              requireTextOrTextFieldGap(),
+              textField(
+                hintText: 'Ex. : meetion mt-m915 mouse',
+                isDescriptionTextField: false,
+                onChange: (value) {},
+                maxLengthForShortTextFields: 50,
+                textInputType: TextInputType.text,
+              ),
+              requiredTexts(
+                  text: 'Enter a short description about your product'),
+              requireTextOrTextFieldGap(),
+              textField(
+                  hintText: 'this is a meetion gaming...',
+                  isDescriptionTextField: true,
+                  onChange: (value) {},
+                  textInputType: TextInputType.multiline),
+              requiredTexts(text: 'Enter delivery time'),
+              requireTextOrTextFieldGap(),
+              Card(
+                elevation: 5.0,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(
+                    20.0,
+                  ),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(
+                    5.0,
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Flexible(
+                        child: SizedBox(
+                          width: 75,
+                          child: textField(
+                            hintText: 'EX. : 5',
+                            isDescriptionTextField: false,
+                            maxLengthForShortTextFields: 10,
+                            onChange: (value) {},
+                            textInputType: TextInputType.number,
+                          ),
+                        ),
+                      ),
+                      const SizedBox(
+                        width: 20.0,
+                      ),
+                      const Padding(
+                        padding: EdgeInsets.only(
+                          top: 15.0,
+                        ),
+                        child: Text(
+                          ':',
+                          style: TextStyle(
+                            fontFamily: Style.ard,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                      const SizedBox(
+                        width: 20.0,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(
+                          top: 10.0,
+                        ),
+                        child: DropdownButton(
+                          underline: Container(
+                            width: double.infinity,
+                            height: 2.0,
+                            color: Style.defaultColor,
+                          ),
+                          isDense: true,
+                          style: const TextStyle(
+                            fontFamily: Style.corbel,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 17.0,
+                            color: Style.isDark ? Colors.white : Colors.black,
+                          ),
+                          icon: const Icon(
+                            Icons.expand_more_rounded,
+                            color: Style.defaultColor,
+                          ),
+                          alignment: Alignment.center,
+                          borderRadius: BorderRadius.circular(
+                            30.0,
+                          ),
+                          value: dropDownValue,
+                          items: deliveryTimes.map((items) {
+                            return DropdownMenuItem(
+                                alignment: Alignment.center,
+                                value: items,
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      items,
+                                    ),
+                                    const SizedBox(
+                                      width: 3.0,
+                                    ),
+                                    const Icon(Icons.timelapse_sharp),
+                                  ],
+                                ));
+                          }).toList(),
+                          onChanged: ((items) {
+                            setState(() {
+                              dropDownValue = items.toString();
+                            });
+                          }),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              requiredTexts(text: 'Select product Catagory'),
+              requireTextOrTextFieldGap(),
+              GridView(
+                physics: const NeverScrollableScrollPhysics(),
+                shrinkWrap: true,
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 4,
+                  childAspectRatio: 3 / 2,
+                  crossAxisSpacing: 3,
+                  mainAxisSpacing: 5,
+                  mainAxisExtent: 40,
+                ),
+                children: catagorys.map((value) {
+                  return InkWell(
+                    onTap: () {
+                      if (!selectedCategorys.contains(value)) {
+                        setState(() {
+                          selectedCategorys.add(value);
+                          categoryController!.repeat();
+                        });
+                      } else {
+                        setState(() {
+                          selectedCategorys.remove(value);
+                        });
+                      }
+                    },
+                    borderRadius: BorderRadius.circular(40.0),
+                    highlightColor: Style.defaultColor.withOpacity(0.5),
+                    child: Card(
                       color: selectedCategorys.contains(value)
                           ? Style.defaultColor.withOpacity(0.7)
                           : null,
-                      borderRadius: BorderRadius.circular(
-                        40.0,
-                      ),
-                      border: Border.all(
-                        color: selectedCategorys.contains(value)
-                            ? Style.defaultColor
-                            : Colors.grey,
-                      ),
-                    ),
-                    child: FittedBox(
-                      child: Text(
-                        value,
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
+                      elevation: 5.0,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(
+                          40.0,
+                        ),
+                        side: BorderSide(
                           color: selectedCategorys.contains(value)
-                              ? catagoryTextColorAnim!.value
+                              ? Style.defaultColor
                               : Colors.grey,
-                          fontFamily: Style.corbel,
-                          // fontSize: 17.0,
-                          fontWeight: FontWeight.bold,
+                          width: 0.7,
                         ),
                       ),
-                    ),
-                  ),
-                );
-              }).toList(),
-            ),
-            const SizedBox(
-              height: 20.0,
-            ),
-            requiredTexts(text: 'Upload product images or vidoes'),
-            Padding(
-              padding: const EdgeInsets.all(
-                5.0,
-              ),
-              child: Container(
-                alignment: Alignment.center,
-                height: buttonHightAnimation!.value,
-                width: double.infinity,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(
-                    10.0,
-                  ),
-                  border: Border.all(
-                    color: Style.defaultColor,
-                    width: 0.5,
-                  ),
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Transform.translate(
-                      offset: Offset(uploadFileTextAnimation!.value, 0.0),
-                      child: TextButton(
-                        onPressed: pickImageOrVideo,
-                        child: Text(
-                          fileUploadButtonText,
-                          style: const TextStyle(
-                            fontFamily: Style.ard,
-                            fontWeight: FontWeight.bold,
-                            color: Color.fromARGB(
-                              255,
-                              65,
-                              65,
-                              65,
+                      child: Padding(
+                        padding: const EdgeInsets.all(
+                          5.0,
+                        ),
+                        child: Container(
+                          alignment: Alignment.center,
+                          child: FittedBox(
+                            child: Text(
+                              value,
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                color: selectedCategorys.contains(value)
+                                    ? catagoryTextColorAnim!.value
+                                    : Colors.grey,
+                                fontFamily: Style.corbel,
+                                // fontSize: 17.0,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
                           ),
                         ),
                       ),
                     ),
-                    Transform.translate(
-                      offset: Offset(uploadFileIconAnimation!.value, 0.0),
-                      child: Icon(
-                        uploadFileIcon,
+                  );
+                }).toList(),
+              ),
+              const SizedBox(
+                height: 20.0,
+              ),
+              requiredTexts(text: 'Upload product images or vidoes'),
+              requireTextOrTextFieldGap(),
+              Padding(
+                padding: const EdgeInsets.all(
+                  5.0,
+                ),
+                child: Card(
+                  elevation: 5.0,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(
+                      10.0,
+                    ),
+                  ),
+                  child: Container(
+                    alignment: Alignment.center,
+                    height: buttonHightAnimation!.value,
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(
+                        10.0,
+                      ),
+                      border: Border.all(
+                        color: Style.defaultColor,
+                        width: 0.5,
                       ),
                     ),
-                  ],
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Transform.translate(
+                          offset: Offset(uploadFileTextAnimation!.value, 0.0),
+                          child: TextButton(
+                            onPressed: pickImageOrVideo,
+                            child: Text(
+                              fileUploadButtonText,
+                              style: const TextStyle(
+                                fontFamily: Style.ard,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.grey,
+                              ),
+                            ),
+                          ),
+                        ),
+                        Transform.translate(
+                          offset: Offset(uploadFileIconAnimation!.value, 0.0),
+                          child: Icon(
+                            uploadFileIcon,
+                            color: Colors.grey,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
                 ),
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 10.0,
-              ),
-              child: savedImagesOrVidoes.isNotEmpty
-                  ? GridView(
-                      physics: const NeverScrollableScrollPhysics(),
-                      shrinkWrap: true,
-                      gridDelegate:
-                          const SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 4,
-                        childAspectRatio: 3 / 2,
-                        mainAxisExtent: 150,
-                        crossAxisSpacing: 3,
-                        mainAxisSpacing: 5,
-                      ),
-                      children: savedImagesOrVidoes.map((photoOrVidoes) {
-                        if (photoOrVidoes.path.endsWith('.jpg') ||
-                            photoOrVidoes.path.endsWith('.png')) {
+              Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 10.0,
+                ),
+                child: savedImagesOrVidoes.isNotEmpty
+                    ? GridView(
+                        physics: const NeverScrollableScrollPhysics(),
+                        shrinkWrap: true,
+                        gridDelegate:
+                            const SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 4,
+                          childAspectRatio: 3 / 2,
+                          mainAxisExtent: 150,
+                          crossAxisSpacing: 3,
+                          mainAxisSpacing: 5,
+                        ),
+                        children: savedImagesOrVidoes.map((photoOrVidoes) {
+                          if (photoOrVidoes.path.endsWith('.jpg') ||
+                              photoOrVidoes.path.endsWith('.JPG') ||
+                              photoOrVidoes.path.endsWith('.png') ||
+                              photoOrVidoes.path.endsWith('.PNG') ||
+                              photoOrVidoes.path.endsWith('.jpeg') ||
+                              photoOrVidoes.path.endsWith('.JPEG') ||
+                              photoOrVidoes.path.endsWith('.gif') ||
+                              photoOrVidoes.path.endsWith('.GIF') ||
+                              photoOrVidoes.path.endsWith('.tif') ||
+                              photoOrVidoes.path.endsWith('.TIF') ||
+                              photoOrVidoes.path.endsWith('.tiff') ||
+                              photoOrVidoes.path.endsWith('.TIFF')) {
+                            return InkWell(
+                              onTap: () async {
+                                if (isSelectionMode) {
+                                  setState(() {
+                                    if (!selectedFiles
+                                        .contains(photoOrVidoes)) {
+                                      selectedFiles.add(photoOrVidoes);
+                                    } else {
+                                      selectedFiles.remove(photoOrVidoes);
+                                      if (selectedFiles.isEmpty) {
+                                        Future.delayed(
+                                          const Duration(
+                                            milliseconds: 500,
+                                          ),
+                                        ).then(
+                                          (_) {
+                                            setState(() {
+                                              isSelectionMode = false;
+                                            });
+                                          },
+                                        );
+
+                                        deleteButtonTwoController!.stop();
+                                        deleteButtonOneController!.reverse();
+                                      }
+                                    }
+                                  });
+                                } else {
+                                  int photoIndexNum = savedImagesOrVidoes
+                                      .indexOf(photoOrVidoes);
+                                  Navigator.of(context).pushNamed(
+                                    ImagePreviewScreen.routeName,
+                                    arguments: {
+                                      'file': photoOrVidoes,
+                                      'index': photoIndexNum,
+                                    },
+                                  );
+                                }
+                              },
+                              onLongPress: () {
+                                setState(() {
+                                  selectedFiles.add(photoOrVidoes);
+                                  isSelectionMode = true;
+                                });
+                                deleteButtonOneController!.forward();
+                              },
+                              child: Stack(
+                                alignment: Alignment.topRight,
+                                children: [
+                                  Hero(
+                                    tag: savedImagesOrVidoes.indexOf(
+                                      photoOrVidoes,
+                                    ),
+                                    child: Image.file(
+                                      photoOrVidoes,
+                                      fit: BoxFit.cover,
+                                    ),
+                                  ),
+                                  if (selectedFiles.contains(photoOrVidoes))
+                                    const Icon(
+                                      Icons.check_circle,
+                                      color: Style.defaultColor,
+                                    ),
+                                ],
+                              ),
+                            );
+                          }
                           return InkWell(
                             onTap: () async {
                               if (isSelectionMode) {
@@ -559,11 +714,8 @@ class _AddingProductScreenState extends State<AddingProductScreen>
                                   } else {
                                     selectedFiles.remove(photoOrVidoes);
                                     if (selectedFiles.isEmpty) {
-                                      Future.delayed(
-                                        const Duration(
-                                          milliseconds: 500,
-                                        ),
-                                      ).then(
+                                      Future.delayed(const Duration(seconds: 1))
+                                          .then(
                                         (_) {
                                           setState(() {
                                             isSelectionMode = false;
@@ -576,11 +728,6 @@ class _AddingProductScreenState extends State<AddingProductScreen>
                                     }
                                   }
                                 });
-                              } else {
-                                Navigator.of(context).pushNamed(
-                                  ImagePreviewScreen.routeName,
-                                  arguments: photoOrVidoes,
-                                );
                               }
                             },
                             onLongPress: () {
@@ -593,9 +740,10 @@ class _AddingProductScreenState extends State<AddingProductScreen>
                             child: Stack(
                               alignment: Alignment.topRight,
                               children: [
-                                Image.file(
-                                  photoOrVidoes,
-                                  fit: BoxFit.cover,
+                                Container(
+                                  height: 150,
+                                  color: Colors.green,
+                                  child: const Text('video'),
                                 ),
                                 if (selectedFiles.contains(photoOrVidoes))
                                   const Icon(
@@ -605,63 +753,282 @@ class _AddingProductScreenState extends State<AddingProductScreen>
                               ],
                             ),
                           );
-                        }
-                        return InkWell(
-                          onTap: () async {
-                            if (isSelectionMode) {
-                              setState(() {
-                                if (!selectedFiles.contains(photoOrVidoes)) {
-                                  selectedFiles.add(photoOrVidoes);
-                                } else {
-                                  selectedFiles.remove(photoOrVidoes);
-                                  if (selectedFiles.isEmpty) {
-                                    Future.delayed(const Duration(seconds: 1))
-                                        .then(
-                                      (_) {
-                                        setState(() {
-                                          isSelectionMode = false;
-                                        });
-                                      },
-                                    );
-
-                                    deleteButtonTwoController!.stop();
-                                    deleteButtonOneController!.reverse();
-                                  }
-                                }
-                              });
-                            }
-                          },
-                          onLongPress: () {
-                            setState(() {
-                              selectedFiles.add(photoOrVidoes);
-                              isSelectionMode = true;
-                            });
-                            deleteButtonOneController!.forward();
-                          },
-                          child: Stack(
-                            alignment: Alignment.topRight,
-                            children: [
-                              Container(
-                                height: 150,
-                                color: Colors.green,
-                                child: const Text('video'),
-                              ),
-                              if (selectedFiles.contains(photoOrVidoes))
-                                const Icon(
-                                  Icons.check_circle,
-                                  color: Style.defaultColor,
-                                ),
-                            ],
+                        }).toList(),
+                      )
+                    : null,
+              ),
+              const SizedBox(
+                height: 10.0,
+              ),
+              requiredTexts(
+                text: 'select your country',
+              ),
+              requireTextOrTextFieldGap(),
+              ListView(
+                physics: const NeverScrollableScrollPhysics(),
+                shrinkWrap: true,
+                children: countryName.map((countries) {
+                  return Stack(
+                    alignment: Alignment.centerLeft,
+                    children: [
+                      if (countryName.indexOf(countries) == countryIndex)
+                        const Icon(
+                          Icons.check,
+                          size: 28,
+                          color: Color(0xFF009905),
+                        ),
+                      Transform.translate(
+                        offset: countryName.indexOf(countries) == countryIndex
+                            ? Offset(
+                                countryListTileAnimation!.value,
+                                0.0,
+                              )
+                            : const Offset(0.0, 0.0),
+                        child: Card(
+                          elevation: 5,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(
+                              20.0,
+                            ),
                           ),
-                        );
-                      }).toList(),
-                    )
-                  : null,
-            ),
-          ],
+                          child: ListTile(
+                            onTap: () {
+                              setState(() {
+                                selectedCountryName = countries;
+                              });
+                              countryIndex = countryName.indexOf(countries);
+                              countryListTileController!.repeat();
+                            },
+                            leading: SizedBox(
+                              width: 50,
+                              height: 35,
+                              child: Image.asset(
+                                countries.contains('Usa')
+                                    ? 'assets/images/usa_flag.png'
+                                    : countries.contains('China')
+                                        ? 'assets/images/china_flag.jpg'
+                                        : countries.contains('Uk')
+                                            ? 'assets/images/uk_flag.png'
+                                            : countries.contains('Taiwan')
+                                                ? 'assets/images/taiwan_flag.jpg'
+                                                : countries
+                                                        .contains('Bangladesh')
+                                                    ? 'assets/images/bd_flag.png'
+                                                    : countries
+                                                            .contains('India')
+                                                        ? 'assets/images/india_flag.png'
+                                                        : countries.contains(
+                                                                'Italy')
+                                                            ? 'assets/images/itly_flag.png'
+                                                            : countries
+                                                                    .contains(
+                                                                        'Japan')
+                                                                ? 'assets/images/japan_flag.png'
+                                                                : countries.contains(
+                                                                        'Malasia')
+                                                                    ? 'assets/images/malasia_flag.png'
+                                                                    : countries.contains(
+                                                                            'Pakistan')
+                                                                        ? 'assets/images/pakistan_flag.jpg'
+                                                                        : countries.contains('Qatar')
+                                                                            ? 'assets/images/qatar_flag.jpg'
+                                                                            : countries.contains('Sudi Arab')
+                                                                                ? 'assets/images/sudi_flag.png'
+                                                                                : 'assets/images/bazar_icon.png',
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                            title: Text(
+                              countries,
+                              style: const TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontFamily: Style.corbel,
+                                fontSize: 18.0,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  );
+                }).toList(),
+              ),
+              const SizedBox(
+                height: 15.0,
+              ),
+              requiredTexts(text: 'please selected  product current status'),
+              requireTextOrTextFieldGap(),
+              Card(
+                elevation: 7.0,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(
+                    50.0,
+                  ),
+                ),
+                child: SwitchListTile(
+                  activeThumbImage: const AssetImage(
+                    'assets/images/ships_prd.png',
+                  ),
+                  activeColor: Colors.green,
+                  activeTrackColor: Colors.green.withOpacity(0.5),
+                  value: isReadyToShip,
+                  onChanged: (value) {
+                    setState(() {
+                      isReadyToShip = value;
+                    });
+                  },
+                  title: const Text('Ready To Ship'),
+                ),
+              ),
+              const SizedBox(
+                height: 15.0,
+              ),
+              requiredTexts(text: 'Set a price to this product'),
+              requireTextOrTextFieldGap(),
+              Card(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(
+                    20.0,
+                  ),
+                ),
+                elevation: 8.0,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 10.0,
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Column(
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: const [
+                                Text(
+                                  'Set a Regular Price : ',
+                                  style: TextStyle(
+                                    fontFamily: Style.corbel,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 17.0,
+                                  ),
+                                ),
+                                Text(
+                                  'this is the main/regular price of your product',
+                                  style: TextStyle(
+                                    fontSize: 9.0,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            Flexible(
+                              child: Padding(
+                                padding: const EdgeInsets.only(
+                                  left: 60.0,
+                                ),
+                                child: textField(
+                                  hintText: 'EX. : 200',
+                                  isDescriptionTextField: false,
+                                  textInputType: TextInputType.number,
+                                  onChange: (value) {},
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(
+                          height: 20.0,
+                        ),
+                        Row(
+                          children: [
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: const [
+                                Text('Add Discount(optional) : '),
+                                Text(
+                                  'buyers can buy your product by discount rate',
+                                  style: TextStyle(
+                                    fontSize: 9.0,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            Flexible(
+                              child: Padding(
+                                padding: const EdgeInsets.only(
+                                  left: 60.0,
+                                ),
+                                child: textField(
+                                  hintText: 'EX. : 25',
+                                  isDescriptionTextField: false,
+                                  textInputType: TextInputType.number,
+                                  onChange: (value) {},
+                                ),
+                              ),
+                            ),
+                            const SizedBox(
+                              width: 10.0,
+                            ),
+                            const Text(
+                              '%',
+                              style: TextStyle(
+                                fontFamily: Style.ard,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 21,
+                              ),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 20.0),
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          children: [
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: const [
+                                Text(
+                                  'Add Coupon Code(optional) : ',
+                                ),
+                                SizedBox(
+                                  width: 150,
+                                  child: Text(
+                                    'buyer can use this coupon code for get a discount,',
+                                    style: TextStyle(
+                                      fontSize: 9.0,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(
+                              width: 15.0,
+                            ),
+                            Flexible(
+                                child: textField(
+                              hintText: 'EX. : Fx?7EZzRy',
+                              isDescriptionTextField: false,
+                              textInputType: TextInputType.text,
+                              onChange: (value) {},
+                            ))
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              )
+            ],
+          ),
         ),
-      ),
-    );
+        floatingActionButton: isFormComplete
+            ? FloatingActionButton(
+                onPressed: () {},
+                child: const Text(
+                  'Next',
+                ),
+              )
+            : null);
   }
 
   //
@@ -741,5 +1108,14 @@ TextField textField(
         ),
       ),
     ),
+  );
+}
+
+//
+//
+//*gap between require text and TextFiled
+Widget requireTextOrTextFieldGap() {
+  return const SizedBox(
+    height: 10.0,
   );
 }
