@@ -367,7 +367,11 @@ class _AddingProductScreenState extends State<AddingProductScreen>
               textField(
                 hintText: 'Ex. : meetion mt-m915 mouse',
                 isDescriptionTextField: false,
-                onChange: (value) {},
+                onChange: (value) {
+                  setState(() {
+                    productTitle = value;
+                  });
+                },
                 maxLengthForShortTextFields: 50,
                 textInputType: TextInputType.text,
               ),
@@ -382,7 +386,11 @@ class _AddingProductScreenState extends State<AddingProductScreen>
               textField(
                   hintText: 'this is a meetion gaming...',
                   isDescriptionTextField: true,
-                  onChange: (value) {},
+                  onChange: (value) {
+                    setState(() {
+                      productShortDescription = value;
+                    });
+                  },
                   textInputType: TextInputType.multiline),
               //
               //? end of the short description section ---------------->
@@ -412,7 +420,11 @@ class _AddingProductScreenState extends State<AddingProductScreen>
                             hintText: 'EX. : 5',
                             isDescriptionTextField: false,
                             maxLengthForShortTextFields: 10,
-                            onChange: (value) {},
+                            onChange: (value) {
+                              setState(() {
+                                deliveryTime = value;
+                              });
+                            },
                             textInputType: TextInputType.number,
                           ),
                         ),
@@ -497,6 +509,8 @@ class _AddingProductScreenState extends State<AddingProductScreen>
               //
               //
               //* start of the "Select Product Catatgory " Section ----------->
+              //
+              //
               requiredTexts(text: 'Select product Catagory'),
               requireTextOrTextFieldGap(),
               GridView(
@@ -796,7 +810,7 @@ class _AddingProductScreenState extends State<AddingProductScreen>
               //
               //
               requiredTexts(
-                text: 'select your country',
+                text: 'select  country',
               ),
               requireTextOrTextFieldGap(),
               ListView(
@@ -923,7 +937,13 @@ class _AddingProductScreenState extends State<AddingProductScreen>
                       isReadyToShip = value;
                     });
                   },
-                  title: const Text('Ready To Ship'),
+                  title: const Text(
+                    'Ready To Ship',
+                    style: TextStyle(
+                      fontFamily: Style.corbel,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
                 ),
               ),
               //
@@ -998,7 +1018,11 @@ class _AddingProductScreenState extends State<AddingProductScreen>
                                   hintText: 'EX. : 200',
                                   isDescriptionTextField: false,
                                   textInputType: TextInputType.number,
-                                  onChange: (value) {},
+                                  onChange: (value) {
+                                    setState(() {
+                                      regularPrice = value;
+                                    });
+                                  },
                                 ),
                               ),
                             ),
@@ -1043,7 +1067,11 @@ class _AddingProductScreenState extends State<AddingProductScreen>
                                   hintText: 'EX. : 25',
                                   isDescriptionTextField: false,
                                   textInputType: TextInputType.number,
-                                  onChange: (value) {},
+                                  onChange: (value) {
+                                    setState(() {
+                                      discountPercent = value;
+                                    });
+                                  },
                                 ),
                               ),
                             ),
@@ -1097,7 +1125,11 @@ class _AddingProductScreenState extends State<AddingProductScreen>
                               hintText: 'EX. : Fx?7EZzRy',
                               isDescriptionTextField: false,
                               textInputType: TextInputType.text,
-                              onChange: (value) {},
+                              onChange: (value) {
+                                setState(() {
+                                  couponCode = value;
+                                });
+                              },
                             ))
                           ],
                         ),
