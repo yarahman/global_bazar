@@ -82,14 +82,14 @@ class _AddingProductScreenState extends State<AddingProductScreen>
 //
 //*@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ all lists @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
   List<File> imagesOrVideos = [];
-  List deliveryTimes = [
+  final List deliveryTimes = [
     'min',
     'hour',
     'days',
     'months',
   ];
 
-  List<String> catagorys = [
+  final List<String> catagorys = [
     'Home & Kitchen',
     'Beauty & PersonalCare',
     'Toys & Games',
@@ -102,7 +102,7 @@ class _AddingProductScreenState extends State<AddingProductScreen>
     'Electronics',
   ];
 
-  List<String> countryName = [
+  final List<String> countryName = [
     'Usa',
     'China',
     'Uk',
@@ -360,6 +360,8 @@ class _AddingProductScreenState extends State<AddingProductScreen>
           child: ListView(
             shrinkWrap: true,
             children: [
+              //
+              //* start of the enter title section -------------->
               requiredTexts(text: 'Enter your product title'),
               requireTextOrTextFieldGap(),
               textField(
@@ -369,6 +371,11 @@ class _AddingProductScreenState extends State<AddingProductScreen>
                 maxLengthForShortTextFields: 50,
                 textInputType: TextInputType.text,
               ),
+              //
+              //? end of the title section ----------------->
+              //
+              //*start of the short description section ---------------->
+              //
               requiredTexts(
                   text: 'Enter a short description about your product'),
               requireTextOrTextFieldGap(),
@@ -377,6 +384,10 @@ class _AddingProductScreenState extends State<AddingProductScreen>
                   isDescriptionTextField: true,
                   onChange: (value) {},
                   textInputType: TextInputType.multiline),
+              //
+              //? end of the short description section ---------------->
+              //
+              //*start of the "enter delivery time" section ----------->
               requiredTexts(text: 'Enter delivery time'),
               requireTextOrTextFieldGap(),
               Card(
@@ -478,9 +489,14 @@ class _AddingProductScreenState extends State<AddingProductScreen>
                   ),
                 ),
               ),
+              //
+              //? end of the "enter delivery time" section ---------------->
               const SizedBox(
                 height: 20,
               ),
+              //
+              //
+              //* start of the "Select Product Catatgory " Section ----------->
               requiredTexts(text: 'Select product Catagory'),
               requireTextOrTextFieldGap(),
               GridView(
@@ -551,9 +567,18 @@ class _AddingProductScreenState extends State<AddingProductScreen>
                   );
                 }).toList(),
               ),
+              //
+              //? end of the "select product catagory" section --------------->
+              //
+              //
               const SizedBox(
                 height: 20.0,
               ),
+              //
+              //
+              //*start of the "Upload product images or vidoes" section ------------->
+              //
+              //
               requiredTexts(text: 'Upload product images or vidoes'),
               requireTextOrTextFieldGap(),
               Padding(
@@ -757,9 +782,19 @@ class _AddingProductScreenState extends State<AddingProductScreen>
                       )
                     : null,
               ),
+              //
+              //
+              //? end of the "Upload product images or vidoes" section ---------------->
+              //
+              //
               const SizedBox(
                 height: 10.0,
               ),
+              //
+              //
+              //* start of the "select your country" section ------------------->
+              //
+              //
               requiredTexts(
                 text: 'select your country',
               ),
@@ -853,9 +888,20 @@ class _AddingProductScreenState extends State<AddingProductScreen>
                   );
                 }).toList(),
               ),
+              //
+              //
+              //?end of the "select your country" section ----------------->
+              //
+              //
               const SizedBox(
                 height: 15.0,
               ),
+              //
+              //
+              //* start of the "please selected product current status" section ------------>
+              //
+              //
+              //
               requiredTexts(text: 'please selected  product current status'),
               requireTextOrTextFieldGap(),
               Card(
@@ -880,9 +926,19 @@ class _AddingProductScreenState extends State<AddingProductScreen>
                   title: const Text('Ready To Ship'),
                 ),
               ),
+              //
+              //
+              //? end of the "please product current status" section ---------------->
+              //
+              //
               const SizedBox(
                 height: 15.0,
               ),
+              //
+              //
+              //* start of the "set a price to this product " sectino -------------->
+              //
+              //
               requiredTexts(text: 'Set a price to this product'),
               requireTextOrTextFieldGap(),
               Card(
@@ -914,10 +970,21 @@ class _AddingProductScreenState extends State<AddingProductScreen>
                                     fontSize: 17.0,
                                   ),
                                 ),
-                                Text(
-                                  'this is the main/regular price of your product',
-                                  style: TextStyle(
-                                    fontSize: 9.0,
+                                SizedBox(
+                                  width: 150.0,
+                                  child: Text(
+                                    'this is the main/regular price of your product',
+                                    style: TextStyle(
+                                      fontSize: 9.0,
+                                    ),
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: 150.0,
+                                  child: Text(
+                                    'note : you can change this value late also',
+                                    style: TextStyle(
+                                        fontSize: 9.0, color: Colors.red),
                                   ),
                                 ),
                               ],
@@ -946,10 +1013,23 @@ class _AddingProductScreenState extends State<AddingProductScreen>
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: const [
                                 Text('Add Discount(optional) : '),
-                                Text(
-                                  'buyers can buy your product by discount rate',
-                                  style: TextStyle(
-                                    fontSize: 9.0,
+                                SizedBox(
+                                  width: 150,
+                                  child: Text(
+                                    'buyers can buy your product by discount rate',
+                                    style: TextStyle(
+                                      fontSize: 9.0,
+                                    ),
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: 150.0,
+                                  child: Text(
+                                    'note : you can add discount rate late by edit your product',
+                                    style: TextStyle(
+                                      fontSize: 9.0,
+                                      color: Colors.red,
+                                    ),
                                   ),
                                 ),
                               ],
@@ -999,6 +1079,14 @@ class _AddingProductScreenState extends State<AddingProductScreen>
                                     ),
                                   ),
                                 ),
+                                SizedBox(
+                                  width: 150,
+                                  child: Text(
+                                    'note : you can add coupon code later by edit your product',
+                                    style: TextStyle(
+                                        fontSize: 9.0, color: Colors.red),
+                                  ),
+                                ),
                               ],
                             ),
                             const SizedBox(
@@ -1017,7 +1105,10 @@ class _AddingProductScreenState extends State<AddingProductScreen>
                     ),
                   ),
                 ),
-              )
+              ),
+              //
+              //
+              //? end of the "set a price to this product" section ---------------------->
             ],
           ),
         ),
