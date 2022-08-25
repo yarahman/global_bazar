@@ -40,6 +40,13 @@ dependencies:
   provider: ^6.0.3
   #this package for picking file like video image and more
   file_picker: ^5.0.1
+  #this is package for playing vidoes 
+  video_player: ^2.4.7
+  # this is package for getting video thumbnail(only android & ios)
+  video_compress: ^3.1.1
+  # this package for showing toast like snakbar
+  flutter_styled_toast: ^2.1.3
+  
 
 dev_dependencies:
   flutter_test:
