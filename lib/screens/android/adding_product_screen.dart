@@ -7,6 +7,7 @@ import 'package:video_compress/video_compress.dart';
 
 import '../../theme/style.dart';
 import '../android/image_preivew_screen.dart';
+import '../android/video_preview_screen.dart';
 
 class AddingProductScreen extends StatefulWidget {
   static const routeName = 'addingProductScreen';
@@ -1162,22 +1163,31 @@ class _AddingProductScreenState extends State<AddingProductScreen>
                         child: Stack(
                           alignment: Alignment.center,
                           children: [
-                            Card(
-                              elevation: 5.0,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(20.0),
-                              ),
-                              child: Container(
-                                constraints: const BoxConstraints(
-                                  maxHeight: 200,
-                                  maxWidth: double.infinity,
+                            InkWell(
+                              onTap: () {
+                                Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (context) {
+                                    return VideoPreviewScreen(video!);
+                                  },
+                                ));
+                              },
+                              child: Card(
+                                elevation: 5.0,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(20.0),
                                 ),
-                                child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(
-                                    20.0,
+                                child: Container(
+                                  constraints: const BoxConstraints(
+                                    maxHeight: 200,
+                                    maxWidth: double.infinity,
                                   ),
-                                  child: Image.file(
-                                    videoThumnail!,
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(
+                                      20.0,
+                                    ),
+                                    child: Image.file(
+                                      videoThumnail!,
+                                    ),
                                   ),
                                 ),
                               ),
