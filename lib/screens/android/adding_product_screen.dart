@@ -1,10 +1,13 @@
+//* dart imports --->
 import 'dart:io';
 import 'dart:math';
 
+//*flutter package imports -------->
 import 'package:flutter/material.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:video_compress/video_compress.dart';
 
+//* defferent dart file imports----->
 import '../../theme/style.dart';
 import '../android/image_preivew_screen.dart';
 import '../android/video_preview_screen.dart';
@@ -22,7 +25,9 @@ class _AddingProductScreenState extends State<AddingProductScreen>
   //
   //
   //*@@@@@@@@@@@@@@@@@@@@@@@@@@@@ all common variables @@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-
+//
+//
+//* random variables ------------------->
   var fileUploadButtonText = 'Upload File';
   var uploadFileIcon = Icons.file_copy;
   bool isSelectionMode = false;
@@ -33,10 +38,9 @@ class _AddingProductScreenState extends State<AddingProductScreen>
   var videoButtonText = 'Add Video';
   var isVideoButtonHight = false;
   var showDeleteWidget = false;
-
   //
   //
-  //* form variables ----->
+  //* product form variables ---------------->
   var productTitle = '';
   var productShortDescription = '';
   var deliveryTime = '';
@@ -52,9 +56,9 @@ class _AddingProductScreenState extends State<AddingProductScreen>
   File? videoThumnail;
   //
   //
-  //* all text field controllers
-  //? this is controllers are help text field to keep data when widget are rebuild
-  //
+//* product form textfield controllers -------------------->
+//! if you remove contollers form textfield than textfeild values remove automatically when you scroll down or up
+//
   final titleController = TextEditingController();
   final shortDescriptionController = TextEditingController();
   final deliveryTimeController = TextEditingController();
@@ -62,11 +66,11 @@ class _AddingProductScreenState extends State<AddingProductScreen>
   final discountContoller = TextEditingController();
   final couponController = TextEditingController();
   final couponDiscountPersentController = TextEditingController();
-
+//
 //
 //?####################################### end commons Variables ###############################
 //
-
+//
 //
 //*@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ start all animations variables @@@@@@@@@@@@@@@@@@@@@@@@@@
   AnimationController? categoryController;
@@ -157,7 +161,7 @@ class _AddingProductScreenState extends State<AddingProductScreen>
   //*@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ own methods @@@@@@@@@@@@@@@@@@@@@@@@
   //
   //
-  //* this is method responsible for picking image ---------->
+  //* this is for pick image ---------->
   Future<void> pickImage() async {
     FilePickerResult? result = await FilePicker.platform.pickFiles(
       allowMultiple: true,
@@ -176,7 +180,6 @@ class _AddingProductScreenState extends State<AddingProductScreen>
     }
   }
 
-//
 //
 //
 //* this is for pick video-------->
@@ -200,6 +203,7 @@ class _AddingProductScreenState extends State<AddingProductScreen>
 
 //
 //
+//* this is remove selected image form "savedImageLists"--->
   void removeSelectedImage() {
     setState(() {
       savedImagesLists.removeWhere((files) {
@@ -209,14 +213,13 @@ class _AddingProductScreenState extends State<AddingProductScreen>
   }
 
 //
+//
 //?##################################end own methods #####################################
-  //
   //
   //
   //*@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ flutter default methods @@@@@@@@@@@@@@@@@@@@@@@@@@@@@
   @override
   void initState() {
-    //
     //
     //* this is for Select Product Catagory Animation---->
     categoryController = AnimationController(
@@ -234,7 +237,6 @@ class _AddingProductScreenState extends State<AddingProductScreen>
     catagoryTextColorAnim!.addListener(() {
       setState(() {});
     });
-
     //
     //
     //* this is for Upload Image Or Video Button Animations
@@ -262,12 +264,11 @@ class _AddingProductScreenState extends State<AddingProductScreen>
       begin: 150,
       end: 40,
     ).animate(uploadImageButtonController!);
-
-//
 //
 //
 //* this animation for upload file text convert to add more text
-
+//
+//
     uploadFileTextController = AnimationController(
       vsync: this,
       duration: const Duration(
@@ -288,10 +289,11 @@ class _AddingProductScreenState extends State<AddingProductScreen>
 
     uploadFileTextAnimation =
         Tween<double>(begin: 0.0, end: -200).animate(uploadFileTextController!);
-
-    //*this is for upload file button icon changes animation
-    //
-    //
+//
+//
+//*this is for upload file button icon changes animation
+//
+//
     uploadFileIconController = AnimationController(
       vsync: this,
       duration: const Duration(
@@ -313,10 +315,11 @@ class _AddingProductScreenState extends State<AddingProductScreen>
       begin: 0.0,
       end: 200,
     ).animate(uploadFileIconController!);
-
-    //
-    //
-    //* this is for 1st delete button animation
+//
+//
+//* this is for 1st delete button animation
+//
+//
     deleteButtonOneController = AnimationController(
         vsync: this, duration: const Duration(milliseconds: 500))
       ..addListener(() {
@@ -329,8 +332,11 @@ class _AddingProductScreenState extends State<AddingProductScreen>
       });
     deleteOneAnimation = Tween<double>(begin: -200, end: 0.0)
         .animate(deleteButtonOneController!);
-    //
-    //* this is for 2nd delete button animation
+//
+//
+//* this is for 2nd delete button animation
+//
+//
     deleteButtonTwoController = AnimationController(
       vsync: this,
       duration: const Duration(
@@ -342,9 +348,11 @@ class _AddingProductScreenState extends State<AddingProductScreen>
     deleteTwoAnimation = Tween<double>(begin: 24.0, end: 35).animate(
         CurvedAnimation(
             parent: deleteButtonTwoController!, curve: Curves.bounceIn));
-    //
-    //
-    //* this is for country List Tile Animation
+//
+//
+//* this is for country List Tile Animation
+//
+//
     countryListTileController = AnimationController(
       vsync: this,
       duration: const Duration(
@@ -356,11 +364,11 @@ class _AddingProductScreenState extends State<AddingProductScreen>
           ..addListener(() {
             setState(() {});
           });
-
-    //
-    //
-    //* this is for review page animations
-    //
+//
+//
+//* this is for review page animations
+//
+//
     reviewPageController = AnimationController(
       vsync: this,
       duration: const Duration(
@@ -371,11 +379,11 @@ class _AddingProductScreenState extends State<AddingProductScreen>
       });
     reviewPageAnimation =
         Tween<double>(begin: 0.0, end: 1.0).animate(reviewPageController!);
-
-    //
-    //
-    //* this is for the video button animation
-
+//
+//
+//* this is for the video button animation
+//
+//
     videoButtonTextController = AnimationController(
       vsync: this,
       duration: const Duration(
@@ -410,8 +418,8 @@ class _AddingProductScreenState extends State<AddingProductScreen>
     super.initState();
   }
 
-  //
-  //
+//
+//
   @override
   void dispose() {
     categoryController!.dispose();
@@ -428,7 +436,10 @@ class _AddingProductScreenState extends State<AddingProductScreen>
 
   @override
   Widget build(BuildContext context) {
-    //* show the next button when this values are true
+//
+//
+//
+//* %%%%%%%%%%%%%%%%%%%%%% show next button (floating action button)  %%%%%%%%%%%%%%%%
     if (productTitle.isNotEmpty &&
         productShortDescription.isNotEmpty &&
         deliveryTime.isNotEmpty &&
@@ -444,6 +455,13 @@ class _AddingProductScreenState extends State<AddingProductScreen>
         isFormComplete = false;
       });
     }
+//*%%%%%%%%%%%%%%  END - show next button (floating action button)   %%%%%%%%%%%%%%%%%%%%%%%%
+//
+//
+//
+//
+//
+//*%%%%%%%%%%%%%%%%%%%%%                 THE APP BAR                %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     final appBar = AppBar(
       title: Text(
         isReviewPage ? 'Review Your Selection\'s' : 'Add Your Products',
@@ -479,14 +497,23 @@ class _AddingProductScreenState extends State<AddingProductScreen>
           ),
       ],
     );
+//*%%%%%%%%%%%%%%%%%%%%%%%%%%                 END APP BAR                   %%%%%%%%%%%%%%%%%%%%%%%%%%%
 //
 //
 //
-
-    //* screen height and width
+//
+//
+//* %%%%%%%%%%%%%%%%%%%%                        SCREEN HIGHT AND WIDTH                  %%%%%%%%%%%%%%%%%%%%%%%%%
     final screenHight =
         MediaQuery.of(context).size.height - appBar.preferredSize.height;
     final screenWidth = MediaQuery.of(context).size.width;
+//*%%%%%%%%%%%%%%%%%%%%                    END SCREEN HIGHT AND WIDTH                  %%%%%%%%%%%%%%%%%%%%%%%
+//
+//
+//
+//
+//
+//
     return Scaffold(
       appBar: appBar,
       body: Stack(
@@ -498,8 +525,12 @@ class _AddingProductScreenState extends State<AddingProductScreen>
                 ListView(
                   shrinkWrap: true,
                   children: [
-                    //
-                    //* start of the enter title section -------------->
+//
+//
+//
+//
+//
+//* %%%%%%%%%%%%%%%%%%%%                             ENTER PRODUCT TITLE                          %%%%%%%%%%%%%%%%%%%%%%%%%
                     requiredTexts(text: 'Enter your product title'),
                     requireTextOrTextFieldGap(),
                     textField(
@@ -513,28 +544,33 @@ class _AddingProductScreenState extends State<AddingProductScreen>
                         maxLengthForShortTextFields: 50,
                         textInputType: TextInputType.text,
                         controller: titleController),
-                    //
-                    //? end of the title section ----------------->
-                    //
-                    //*start of the short description section ---------------->
-                    //
+//* %%%%%%%%%%%%%%%%%%                               END ENTER PRODUCT TITLE                           %%%%%%%%%%%%%%%%%%%%%%%%%
+//
+//
+//
+//
+//
+//* %%%%%%%%%%%%%%%%%%                     ENTER PRODUCT SHORT DESCRIPTION             %%%%%%%%%%%%%%%%%%%%%%
                     requiredTexts(
                         text: 'Enter a short description about your product'),
                     requireTextOrTextFieldGap(),
                     textField(
-                        controller: shortDescriptionController,
-                        hintText: 'this is a meetion gaming...',
-                        isDescriptionTextField: true,
-                        onChange: (value) {
-                          setState(() {
-                            productShortDescription = value;
-                          });
-                        },
-                        textInputType: TextInputType.multiline),
-                    //
-                    //? end of the short description section ---------------->
-                    //
-                    //*start of the "enter delivery time" section ----------->
+                      controller: shortDescriptionController,
+                      hintText: 'this is a meetion gaming...',
+                      isDescriptionTextField: true,
+                      onChange: (value) {
+                        setState(() {
+                          productShortDescription = value;
+                        });
+                      },
+                      textInputType: TextInputType.multiline,
+                    ),
+//*%%%%%%%%%%%%%%%%%                        END PRODUCT SHORT DESCRIPTION                 %%%%%%%%%%%%%%%%%%%%%%%%%%%
+//
+//
+//
+//
+//*%%%%%%%%%%%%%%%%%%%%                ENTER DELIVERY TIME                 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
                     requiredTexts(text: 'Enter delivery time'),
                     requireTextOrTextFieldGap(),
                     Card(
@@ -644,16 +680,21 @@ class _AddingProductScreenState extends State<AddingProductScreen>
                         ),
                       ),
                     ),
-                    //
-                    //? end of the "enter delivery time" section ---------------->
+//*%%%%%%%%%%%%%%%%%%%%%                  END ENTER DELIVERY TIME                  %%%%%%%%%%%%%%%%%%%%%%%%%%
+//
+//
+//
+//
+//
                     const SizedBox(
                       height: 20,
                     ),
-                    //
-                    //
-                    //* start of the "Select Product Catatgory " Section ----------->
-                    //
-                    //
+//
+//
+//
+//
+//
+//*%%%%%%%%%%%%%%%%%%                       SELECT PRODUCT CATAGORY                     %%%%%%%%%%%%%%%%%%%%%%%%%%
                     requiredTexts(text: 'Select product Catagory'),
                     requireTextOrTextFieldGap(),
                     GridView(
@@ -725,18 +766,21 @@ class _AddingProductScreenState extends State<AddingProductScreen>
                         );
                       }).toList(),
                     ),
-                    //
-                    //? end of the "select product catagory" section --------------->
-                    //
-                    //
+//*%%%%%%%%%%%%%%%%%%%%%%%                     END SELECT PRODUCT CATAGORY                      %%%%%%%%%%%%%%%%%%%%%%%
+//
+//
+//
+//
+//
                     const SizedBox(
                       height: 20.0,
                     ),
-                    //
-                    //
-                    //*start of the "Upload product images or vidoes" section ------------->
-                    //
-                    //
+//
+//
+//
+//
+//
+//* %%%%%%%%%%%%%%%%%%%%%%                     UPLOAD IMAGE                    %%%%%%%%%%%%%%%%%%%%%%%%%%
                     requiredTexts(text: 'Upload product images'),
                     requireTextOrTextFieldGap(),
                     Padding(
@@ -823,10 +867,8 @@ class _AddingProductScreenState extends State<AddingProductScreen>
                                     photoOrVidoes.path.endsWith('.TIF') ||
                                     photoOrVidoes.path.endsWith('.tiff') ||
                                     photoOrVidoes.path.endsWith('.TIFF')) {
-                                  //
-                                  //
-                                  //
-                                  //* this is for the photo view --------------->
+//
+//* this is for the photo view --------------->
                                   return InkWell(
                                     onTap: () async {
                                       if (isSelectionMode) {
@@ -903,19 +945,21 @@ class _AddingProductScreenState extends State<AddingProductScreen>
                             )
                           : null,
                     ),
-                    //
-                    //
-                    //? end of the "Upload product images or vidoes" section ---------------->
-                    //
-                    //
+//* %%%%%%%%%%%%%%%%%%%%%%%%%%%%                     END UPLOAD IMAGE                 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+//
+//
+//
+//
+//
                     const SizedBox(
                       height: 10.0,
                     ),
-                    //
-                    //
-                    //* start of the "select your country" section ------------------->
-                    //
-                    //
+//
+//
+//
+//
+//
+//* %%%%%%%%%%%%%%%%%%%%%%%%%                SELECT YOUR COUNTRY              %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
                     requiredTexts(
                       text: 'select  country',
                     ),
@@ -1010,20 +1054,21 @@ class _AddingProductScreenState extends State<AddingProductScreen>
                         );
                       }).toList(),
                     ),
-                    //
-                    //
-                    //?end of the "select your country" section ----------------->
-                    //
-                    //
+//* %%%%%%%%%%%%%%%%%%%%%%%%%%             END SELECT YOUR COUNTRY            %%%%%%%%%%%%%%%%%%%%%%%%%%%
+//
+//
+//
+//
+//
                     const SizedBox(
                       height: 15.0,
                     ),
-                    //
-                    //
-                    //* start of the "please selected product current status" section ------------>
-                    //
-                    //
-                    //
+//
+//
+//
+//
+//
+//* %%%%%%%%%%%%%%%%%%%%%%%%                  SELECT PRODUCT CURRENT STATUS                %%%%%%%%%%%%%%%%%%%%%%%%%
                     const Text(
                       'please selected  product current status',
                       style: TextStyle(
@@ -1061,17 +1106,21 @@ class _AddingProductScreenState extends State<AddingProductScreen>
                         ),
                       ),
                     ),
-                    //
-                    //
-                    //? end of the "please product current status" section ---------------->
-                    //
-                    //
-                    //* start of the add video to product section ------------->
-                    //
-                    //
+                    //* %%%%%%%%%%%%%%%%%%%%%%%%%%%%                END PRODUCT CURRENT STATUS              %%%%%%%%%%%%%%%%%%%%%%%%%%
+//
+//
+//
+//
+//
                     const SizedBox(
                       height: 20.0,
                     ),
+//
+//
+//
+//
+//
+//* %%%%%%%%%%%%%%%%%%%%%%%%%               ADD VIDEO FOR PRODUCT               %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
                     const Text(
                       'Add video for this product',
                       style: TextStyle(
@@ -1200,15 +1249,21 @@ class _AddingProductScreenState extends State<AddingProductScreen>
                           ],
                         ),
                       ),
-                    //
+//* %%%%%%%%%%%%%%%%%%%%%%%%%%%%               END ADD VIDEO FOR THIS PRODUCT                   %%%%%%%%%%%%%%%%%%%%%%%%%%%
+//
+//
+//
+//
+//
                     const SizedBox(
                       height: 15.0,
                     ),
-                    //
-                    //
-                    //* start of the "set a price to this product " sectino -------------->
-                    //
-                    //
+//
+//
+//
+//
+//
+//*%%%%%%%%%%%%%%%%%%%%%%%%%            SET PRICE TO PRODUCT        %%%%%%%%%%%%%%%%%%%%%%%%%%%
                     requiredTexts(text: 'Set a price to this product'),
                     requireTextOrTextFieldGap(),
                     Card(
@@ -1398,7 +1453,7 @@ class _AddingProductScreenState extends State<AddingProductScreen>
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       children: const [
-                                        Text('Add Coupon Discount Persent : '),
+                                        Text('Add Coupon Discount Percent : '),
                                         SizedBox(
                                           width: 150,
                                           child: Text(
@@ -1455,20 +1510,24 @@ class _AddingProductScreenState extends State<AddingProductScreen>
                         ),
                       ),
                     ),
-                    //
-                    //
-                    //? end of the "set a price to this product" section ---------------------->
+//* %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%                END SET PRICE TO PRODUCT                %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+//
+//
+//
+//
+//
                   ],
                 ),
               ],
             ),
           ),
-
 //
 //
-//* this widget for review the items which is entered by user
 //
 //
+//
+//
+//! %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%                        REVIEW ENTERED DETAILS                     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
           if (isReviewPage)
             Transform.scale(
               scale: reviewPageAnimation!.value,
@@ -1501,6 +1560,12 @@ class _AddingProductScreenState extends State<AddingProductScreen>
                       Flexible(
                         child: ListView(
                           children: [
+//
+//
+//
+//
+//
+//* %%%%%%%%%%%%%%%%%%%%%%%%%%                    TITLE                  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
                             Row(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
@@ -1521,9 +1586,21 @@ class _AddingProductScreenState extends State<AddingProductScreen>
                                 ),
                               ],
                             ),
+//* %%%%%%%%%%%%%%%%%%%%%%%%%%                   END TITLE              %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+//
+//
+//
+//
+//
                             const SizedBox(
                               height: 10.0,
                             ),
+//
+//
+//
+//
+//
+//* %%%%%%%%%%%%%%%%%%%%%%%                  SHORT DESCRIPTION             %%%%%%%%%%%%%%%%%%%%%%%%%%%%
                             Row(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
@@ -1546,9 +1623,21 @@ class _AddingProductScreenState extends State<AddingProductScreen>
                                 ),
                               ],
                             ),
+//* %%%%%%%%%%%%%%%%%%%%%%%%                       END SHORT DESCRIPTION                %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+//
+//
+//
+//
+//
                             const SizedBox(
                               height: 10.0,
                             ),
+//
+//
+//
+//
+//
+//* %%%%%%%%%%%%%%%%%%%%%%%                  DELIVERY TIME             %%%%%%%%%%%%%%%%%%%%%%%%%%%%
                             Row(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
@@ -1572,9 +1661,21 @@ class _AddingProductScreenState extends State<AddingProductScreen>
                                 ),
                               ],
                             ),
+//* %%%%%%%%%%%%%%%%%%%%%%%                  END DELIVERY TIME              %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+//
+//
+//
+//
+//
                             const SizedBox(
                               height: 10.0,
                             ),
+//
+//
+//
+//
+//
+//* %%%%%%%%%%%%%%%%%%%%%%%                  PRODUCT CATAGORY             %%%%%%%%%%%%%%%%%%%%%%%%%%%%
                             Row(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
@@ -1601,16 +1702,28 @@ class _AddingProductScreenState extends State<AddingProductScreen>
                                 ),
                               ],
                             ),
+//* %%%%%%%%%%%%%%%%%%%%%%%                  END  PRODUCT CATAGORY             %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+//
+//
+//
+//
+//
                             const SizedBox(
                               height: 10.0,
                             ),
+//
+//
+//
+//
+//
+//* %%%%%%%%%%%%%%%%%%%%%%%%           PRODUCT IMAGES                %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
                             Column(
                               children: [
                                 Row(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: const [
                                     Text(
-                                      'photos or videos : ',
+                                      'photos : ',
                                       style: TextStyle(
                                         fontFamily: Style.corbel,
                                         fontSize: 20.0,
@@ -1626,7 +1739,7 @@ class _AddingProductScreenState extends State<AddingProductScreen>
                                     childAspectRatio: 3 / 2,
                                     crossAxisSpacing: 2,
                                     mainAxisSpacing: 5,
-                                    mainAxisExtent: 150,
+                                    mainAxisExtent: 100,
                                   ),
                                   shrinkWrap: true,
                                   children:
@@ -1652,9 +1765,68 @@ class _AddingProductScreenState extends State<AddingProductScreen>
                                 ),
                               ],
                             ),
+//* %%%%%%%%%%%%%%%%%%%%%%%                  END PRODUCT IMAGES             %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+//
+//
+//
+//
+//
+                            const SizedBox(
+                              height: 5.0,
+                            ),
+//
+//
+//
+//
+//
+//* %%%%%%%%%%%%%%%%%%%%%%%%           PRODUCT VIDEO               %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                const Text(
+                                  'Video : ',
+                                  style: TextStyle(
+                                    fontFamily: Style.corbel,
+                                    fontSize: 20.0,
+                                  ),
+                                ),
+                                const SizedBox(
+                                  height: 10.0,
+                                ),
+                                Stack(
+                                  alignment: Alignment.center,
+                                  children: [
+                                    Container(
+                                      constraints: BoxConstraints(
+                                        maxHeight: 200,
+                                        maxWidth: screenWidth,
+                                      ),
+                                      child: Image.file(videoThumnail!),
+                                    ),
+                                    const Icon(
+                                      Icons.play_arrow,
+                                      size: 50,
+                                      color: Colors.white,
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+//* %%%%%%%%%%%%%%%%%%%%%%%%           END PRODUCT VIDEO              %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+//
+//
+//
+//
+//
                             const SizedBox(
                               height: 10.0,
                             ),
+//
+//
+//
+//
+//
+//* %%%%%%%%%%%%%%%%%%%%%%%%           COUNTRY              %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
                             Row(
                               children: [
                                 const Text(
@@ -1674,9 +1846,21 @@ class _AddingProductScreenState extends State<AddingProductScreen>
                                 ),
                               ],
                             ),
+//* %%%%%%%%%%%%%%%%%%%%%%%%           END  COUNTRY              %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+//
+//
+//
+//
+//
                             const SizedBox(
                               height: 10.0,
                             ),
+//
+//
+//
+//
+//
+//* %%%%%%%%%%%%%%%%%%%%%%%%           READY TO SHIP              %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
                             Row(
                               children: [
                                 const Text(
@@ -1696,9 +1880,21 @@ class _AddingProductScreenState extends State<AddingProductScreen>
                                 ),
                               ],
                             ),
+//* %%%%%%%%%%%%%%%%%%%%%%%%           END READY TO SHIP              %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+//
+//
+//
+//
+//
                             const SizedBox(
                               height: 10.0,
                             ),
+//
+//
+//
+//
+//
+//* %%%%%%%%%%%%%%%%%%%%%%%%           REGULAR PRICE              %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
                             Row(
                               children: [
                                 const Text(
@@ -1718,9 +1914,21 @@ class _AddingProductScreenState extends State<AddingProductScreen>
                                 ),
                               ],
                             ),
+//* %%%%%%%%%%%%%%%%%%%%%%%%           END REGULAR PRICE              %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+//
+//
+//
+//
+//
                             const SizedBox(
                               height: 10.0,
                             ),
+//
+//
+//
+//
+//
+//* %%%%%%%%%%%%%%%%%%%%%%%%           DISCOUNT PERCENT               %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
                             Row(
                               children: [
                                 const Text(
@@ -1742,9 +1950,21 @@ class _AddingProductScreenState extends State<AddingProductScreen>
                                 ),
                               ],
                             ),
+//* %%%%%%%%%%%%%%%%%%%%%%%%           END DISCOUNT PERCENT              %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+//
+//
+//
+//
+//
                             const SizedBox(
                               height: 10.0,
                             ),
+//
+//
+//
+//
+//
+//* %%%%%%%%%%%%%%%%%%%%%%%%           COUPON CODE              %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
                             Row(
                               children: [
                                 const Text(
@@ -1764,13 +1984,25 @@ class _AddingProductScreenState extends State<AddingProductScreen>
                                 ),
                               ],
                             ),
+//* %%%%%%%%%%%%%%%%%%%%%%%%           END COUPON CODE              %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+//
+//
+//
+//
+//
                             const SizedBox(
                               height: 10.0,
                             ),
+//
+//
+//
+//
+//
+//* %%%%%%%%%%%%%%%%%%%%%%%%           COUPON CODE PERSENT              %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
                             Row(
                               children: [
                                 const Text(
-                                  'Coupon Code Persent : ',
+                                  'Coupon Code Percent : ',
                                   style: TextStyle(
                                     fontFamily: Style.corbel,
                                     fontSize: 20.0,
@@ -1788,9 +2020,21 @@ class _AddingProductScreenState extends State<AddingProductScreen>
                                 ),
                               ],
                             ),
+//* %%%%%%%%%%%%%%%%%%%%%%%%           END COUPON CODE PERCENT              %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+//
+//
+//
+//
+//
                           ],
                         ),
                       ),
+//
+//
+//
+//
+//
+//* %%%%%%%%%%%%%%%%%%%%%%%%           BOTTOM BUTTONS              %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
@@ -1819,6 +2063,12 @@ class _AddingProductScreenState extends State<AddingProductScreen>
                               onTap: () {}),
                         ],
                       ),
+//* %%%%%%%%%%%%%%%%%%%%%%%%           BOTTOM BUTTONS              %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+//
+//
+//
+//
+//
                     ],
                   ),
                 ),
@@ -1826,7 +2076,6 @@ class _AddingProductScreenState extends State<AddingProductScreen>
             ),
         ],
       ),
-
 //
 //
 //* this is the floating action button for go to review page
@@ -1847,14 +2096,13 @@ class _AddingProductScreenState extends State<AddingProductScreen>
     );
   }
 
-  //
-  ///
-  //
-  //
-  //* -------------------------------- All Widget Methods Start Form Here---------------->
-  //
-  //
-  //
+//
+//
+//
+//
+//
+//* %%%%%%%%%%%%%%%%%%%%%%%%           WIDGET METHODS              %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+//
 //* this is upload or reset button on review page
   GestureDetector submitOrResetButton({
     required bool isSubmit,
@@ -1977,8 +2225,5 @@ Widget requireTextOrTextFieldGap() {
     height: 10.0,
   );
 }
-
-//
-//
-//* show toast------->
+//* %%%%%%%%%%%%%%%%%%%%%%%%           END WIDGET METHODS              %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
