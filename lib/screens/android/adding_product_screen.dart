@@ -70,6 +70,7 @@ class _AddingProductScreenState extends State<AddingProductScreen>
 //
 //?####################################### end commons Variables ###############################
 //
+  String myname = 'sami';
 //
 //
 //*@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ start all animations variables @@@@@@@@@@@@@@@@@@@@@@@@@@
