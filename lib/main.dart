@@ -6,7 +6,6 @@ import './screens/bottom_tab_bar_screen.dart';
 import './screens/android/product_detail_screen.dart';
 import './screens/android/adding_product_screen.dart';
 import './screens/android/image_preivew_screen.dart';
-import './screens/android/video_preview_screen.dart';
 
 void main() {
   runApp(
@@ -96,12 +95,9 @@ class MyApp extends StatelessWidget {
       initialRoute: AddingProductScreen.routeName,
       routes: {
         BottomTabbarScreen.routeName: (context) => const BottomTabbarScreen(),
-        ProductDetailScreen.routeName:(context) => const ProductDetailScreen(),
-        AddingProductScreen.routeName :(context) => const AddingProductScreen(),
-        ImagePreviewScreen.routeName :(context) => const ImagePreviewScreen(),
-
-
-
+        ProductDetailScreen.routeName: (context) => const ProductDetailScreen(),
+        AddingProductScreen.routeName: (context) => const AddingProductScreen(),
+        ImagePreviewScreen.routeName: (context) => const ImagePreviewScreen(),
       },
     );
   }
